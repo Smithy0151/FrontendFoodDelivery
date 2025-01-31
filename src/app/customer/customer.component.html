@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row">
+    <!-- Left Column: Customer Orders -->
+    <div class="col-md-6">
+      <h2>Customer Orders</h2>
+
+      <div *ngIf="orders && orders.length > 0; else noOrders">
+        <div *ngFor="let order of orders" class="card my-3 p-3 shadow">
+          <h3>Order #{{ order.id }}</h3>
+          <p><strong>Status:</strong> {{ order?.status }}</p>
+          <p><strong>Total Price:</strong> ${{ order?.totalPrice }}</p>
+
+          <h4>Order Items:</h4>
+          <ul>
+            <li *ngFor="let item of order?.orderItems">
+              <strong>{{ item?.menuItem?.name }}</strong> - 
+              Quantity: {{ item?.quantity }} - 
+              Price: ${{ item?.price }}
+            </li>
+          </ul>
+
+          <p><strong>Restaurant:</strong> {{ order?.restaurant?.name }}</p>
+        </div>
+      </div>
+
+      <!-- Message for when there are no orders -->
+      <ng-template #noOrders>
+        <p>No orders found.</p>
+      </ng-template>
+    </div>
+
+    <!-- Right Column: Create Order Form -->
+    <div class="col-md-6">
+      <h2>Create Order</h2>
+
+      <form (ngSubmit)="submitOrder()">
+        <!-- Customer Dropdown -->
+        <label for="customer">Customer:</label>
+        <select id="customer" [(ngModel)]="selectedCustomerId" name="customerId">
+          <option *ngFor="let customer of customers" [value]="customer.id">
+            {{ customer.name }}
+          </option>
+        </select>
+
+        <!-- Restaurant Dropdown -->
+        <label for="restaurant">Restaurant:</label>
+        <select id="restaurant" [(ngModel)]="selectedRestaurantId" name="restaurantId">
+          <option *ngFor="let restaurant of restaurants" [value]="restaurant.id">
+            {{ restaurant.name }}
+          </option>
+        </select>
+
+        <!-- Payment Dropdown -->
+        <label for="payment">Payment:</label>
+        <select id="payment" [(ngModel)]="selectedPaymentId" name="paymentId">
+          <option *ngFor="let payment of payments" [value]="payment.id">
+            {{ payment.paymentMethod }}
+          </option>
+        </select>
+
+        <!-- Menu Items with Quantity -->
+        <label for="menuItem">Menu Item:</label>
+        <select id="menuItem" (change)="addMenuItem($event)" name="menuItem">
+          <option *ngFor="let item of menuItems" [value]="item.id">
+            {{ item.name }} - {{ item.price | currency }}
+          </option>          
+        </select>
+        <input type="number" [(ngModel)]="quantity" min="1" name="quantity" />
+
+        <h3>Order Items:</h3>
+        <ul>
+          <li *ngFor="let item of selectedMenuItems">
+            {{ item.name }} - {{ item.quantity }} x {{ item.price | currency }}
+          </li>
+        </ul>
+
+        <button type="submit">Submit Order</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+  

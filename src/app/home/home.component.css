@@ -1,0 +1,19 @@
+.jumbotron {
+    background-image: url('https://th.bing.com/th/id/OIP.8sQQKJ-q5UiIgOsg63kJVgHaD4?rs=1&pid=ImgDetMain');
+    background-size: cover;
+    color: white;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  img {
+    border-radius: 10px;
+  }
+  
