@@ -23,7 +23,7 @@ interface Order {
 export class ApiService {
   //local = 8080
   //server = 8081
-  private baseUrl = 'http://localhost:8081';  // Change the URL to match your backend's URL
+  private baseUrl = 'http://localhost:8080';  // Change the URL to match your backend's URL
 
   constructor(private http: HttpClient) {}
 
